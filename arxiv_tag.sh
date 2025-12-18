@@ -25,6 +25,8 @@ echo "Working in directory '${dir}'."
 
 cp $file $dir/main.pdf
 
+echo "${tag}" > $dir/tag.txt
+
 # preparing the first page
 cat <<'EOF' |  > $dir/main_firstPage.tex
 \documentclass[tikz]{standalone}
@@ -49,7 +51,11 @@ cat <<'EOF' |  > $dir/main_firstPage.tex
     \node[anchor=center] at ($(page.west)+(1.0,0)$) 
         {%
             \selectfont \huge%
-            \rotatebox{90}{\href{https://arxiv.org/abs/2508.12975v1}{\textcolor{arxivgrey}{arXiv:2508.12975v1  [q-bio.NC]  18 Aug 2025}}}%
+            \rotatebox{90}{%
+	    	% for url, use the following
+		%\href{https://arxiv.org/abs/2508.12975v1}{\textcolor{arxivgrey}{arXiv:2508.12975v1  [q-bio.NC]  18 Aug 2025}}%
+		\textcolor{arxivgrey}{\input{tag.txt}}%
+	   }%
         };
 }
 \end{tikzpicture}
